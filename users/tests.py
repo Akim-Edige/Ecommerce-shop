@@ -12,8 +12,8 @@ class UserRegistrationViewTestCase(TestCase):
 
     def setUp(self):
         self.data = {
-            'first_name': 'Valerii', 'last_name': 'Pavlikov',
-            'username': 'valerii', 'email': 'valerypavlikov@yandex.ru',
+            'first_name': 'Edige', 'last_name': 'Akimali',
+            'username': 'edigeakimali', 'email': 'edige@example.com',
             'password1': '12345678pP', 'password2': '12345678pP',
         }
         self.path = reverse('users:registration')
