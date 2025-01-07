@@ -75,20 +75,14 @@ class OrderCreateView(TitleMixin, CreateView):
 
 @csrf_exempt
 def stripe_webhook_view(request):
-
     payload = request.body
     sig_header = request.META['HTTP_STRIPE_SIGNATURE']
     event = None
-
     try:
         event = stripe.Webhook.construct_event(
             payload, sig_header, settings.STRIPE_WEBHOOK_SECRET
         )
-    except ValueError:
-        # Invalid payload
-        return HttpResponse(status=400)
-    except stripe.error.SignatureVerificationError:
-        # Invalid signature
+    except:
         return HttpResponse(status=400)
 
     if (
@@ -101,12 +95,5 @@ def stripe_webhook_view(request):
 
 
 def fulfill_checkout(session):
-    print("Fulfilling Checkout Session", session)
-    checkout_session = stripe.checkout.Session.retrieve(
-        session.id,
-        expand=['line_items'],
-    )
-
-    if checkout_session.payment_status != 'unpaid':
-        order = Order.objects.get(pk=int(session.metadata.order_id))
-        order.update_after_payment()
+    order = Order.objects.get(pk=int(session.metadata.order_id))
+    order.update_after_payment()

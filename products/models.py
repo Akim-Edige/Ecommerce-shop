@@ -84,3 +84,34 @@ class Basket(models.Model):
             'price': float(self.product.price),
             'sum': float(self.sum()),
         }
+
+    @classmethod
+    def create_or_update_basket(cls, product_id, user):
+
+        product = Product.objects.get(id=product_id)
+        baskets = Basket.objects.filter(user=user, product=product)
+
+        if not baskets.exists():
+            obj = Basket.objects.create(user=user, product=product, quantity=1)
+            return obj, True
+        else:
+            basket = baskets.first()
+            basket.quantity += 1
+            basket.save()
+
+            return basket, False
+
+    @classmethod
+    def remove_or_delete(cls, product_id, user):
+        product = Product.objects.get(id=product_id)
+        baskets = Basket.objects.filter(user=user, product=product)
+        if not baskets.exists():
+            return False
+        else:
+            basket = baskets.first()
+            if basket.quantity > 1:
+                basket.quantity -= 1
+                basket.save()
+            else:
+                basket.delete()
+            return True
