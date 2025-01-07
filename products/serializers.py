@@ -1,16 +1,25 @@
-from rest_framework import serializers, fields
+from rest_framework import fields, serializers
 
-from products.models import Product, ProductCategory, Basket
+from products.models import Basket, Product, ProductCategory
 
 
 class ProductSerializer(serializers.ModelSerializer):
     category = serializers.SlugRelatedField(slug_field='name', queryset=ProductCategory.objects.all())
+
     class Meta:
         model = Product
         fields = ('id', 'name', 'category', 'price', 'image', 'description', 'quantity')
 
 
-class BasketSerializer(serializers.ModelSerializer):
+class BasketAddUpdateSeriaizer(serializers.ModelSerializer):
+    product = serializers.SlugRelatedField(slug_field='id', queryset=Product.objects.all())
+
+    class Meta:
+        model = Basket
+        fields = ("product",)
+
+
+class BasketViewSerializer(serializers.ModelSerializer):
     product = ProductSerializer()
     # user = serializers.SlugRelatedField(slug_field='username', queryset=User.objects.all())
     sum = fields.FloatField()
