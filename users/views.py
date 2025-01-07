@@ -13,9 +13,10 @@ from users.forms import UserLoginForm, UserRegistrationForm, UserUpdateForm
 from .models import EmailVerification, User
 
 
-class UserLoginView(LoginView):
+class UserLoginView(TitleMixin, LoginView):
     template_name = 'users/login.html'
     form_class = UserLoginForm
+    title = 'Store - Авторизация'
 
     def form_valid(self, form):
         # Check if the user is verified
