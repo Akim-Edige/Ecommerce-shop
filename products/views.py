@@ -6,8 +6,6 @@ from django.views.generic.list import ListView
 from common.views import TitleMixin
 from products.models import Basket, Product, ProductCategory
 
-# Create your views here.
-
 
 class IndexView(TitleMixin, TemplateView):
     template_name = 'products/index.html'
@@ -39,7 +37,6 @@ def basket_add(request, product_id):
 
 @login_required
 def basket_remove(request, basket_id):
-
     basket = Basket.objects.get(id=basket_id)
     basket.delete()
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

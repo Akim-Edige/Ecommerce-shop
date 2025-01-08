@@ -12,7 +12,7 @@
 
             <div class="col-lg-3">
 
-                <h1 class="my-4">Store</h1>
+                <h3 class="my-4">Categories</h3>
                 <div class="list-group">
                     {% for category in categories %}
                         <a href="{% url 'products:category' category.id %}" class="list-group-item">
@@ -77,7 +77,7 @@
                                 <div class="card-footer text-center">
                                     <a class="btn btn-outline-success"
                                        href="{% url 'products:basket_add' product.id %}">
-                                        Отправить в корзину
+                                        Add to a cart
                                     </a>
                                 </div>
                             </div>
@@ -93,7 +93,7 @@
                             <a class="page-link"
                                href="{% if page_obj.has_previous %} {% url 'products:paginator' page_obj.previous_page_number %} {% else %} # {% endif %}"
                                tabindex="-1" aria-disabled="true">
-                                Предыдущая
+                                Previous
                             </a>
                         </li>
                         {% for page in page_obj.paginator.page_range %}
@@ -106,7 +106,7 @@
                         <li class="page-item {% if not page_obj.has_next %} disabled {% endif %}">
                             <a class="page-link"
                                href="{% if page_obj.has_next %} {% url 'products:paginator' page_obj.next_page_number %} {% else %} # {% endif %}">
-                                Следующая
+                                Next
                             </a>
                         </li>
                     </ul>
@@ -123,7 +123,7 @@
 {% block footer %}
     <footer class="py-5 bg-dark">
         <div class="container">
-            <p class="m-0 text-center text-white">Copyright &copy; Store 2022</p>
+            <p class="m-0 text-center text-white">Copyright &copy; Store 2025</p>
         </div>
     </footer>
 {% endblock %}
