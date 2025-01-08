@@ -11,7 +11,6 @@ Welcome to the Ecommerce Shop repository! This project is a full-stack applicati
 - [Technology Stack](#technology-stack)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Contributing](#contributing)
 - [API Endpoints](#api-endpoints)
 - [License](#license)
 
