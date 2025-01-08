@@ -1,7 +1,8 @@
 from django.urls import include, path
 from rest_framework import routers
 
-from api.views import ProductModelViewSet, BasketRemove, UserUpdateView, BasketAdd, BasketListView, UserCreateView
+from api.views import (BasketAdd, BasketListView, BasketRemove,
+                       ProductModelViewSet, UserCreateView, UserUpdateView)
 
 app_name = 'api'
 
@@ -14,5 +15,5 @@ urlpatterns = [
     path('', include(router.urls)),
     path('basket/add/', BasketAdd.as_view(), name='basket-create'),
     path('basket/', BasketListView.as_view(), name='basket-list'),
-    path('user/create/', UserCreateView.as_view(), name='user-create'),
+    path('users/create/', UserCreateView.as_view(), name='user-create'),
 ]

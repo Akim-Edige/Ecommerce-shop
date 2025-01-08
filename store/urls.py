@@ -6,12 +6,10 @@ from django.urls import include, path
 from drf_spectacular.views import (SpectacularAPIView, SpectacularRedocView,
                                    SpectacularSwaggerView)
 from rest_framework.authtoken import views
-from rest_framework_swagger.views import get_swagger_view
 
 from orders.views import stripe_webhook_view
 from products.views import IndexView
 
-schema_view = get_swagger_view(title='Pastebin API')
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", IndexView.as_view(), name="index"),

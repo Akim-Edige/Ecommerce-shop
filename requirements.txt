@@ -18,3 +18,7 @@ django-redis==5.4.0
 
 stripe==11.4.1
 urllib3==2.3.0
+
+djangorestframework==3.15.2
+drf-spectacular==0.28.0
+

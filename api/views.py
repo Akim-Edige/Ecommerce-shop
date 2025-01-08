@@ -1,3 +1,4 @@
+from django.core.cache import cache
 from rest_framework import mixins, status
 from rest_framework.decorators import action
 from rest_framework.generics import CreateAPIView, ListAPIView
@@ -54,6 +55,22 @@ class UserUpdateView(GenericViewSet, mixins.UpdateModelMixin, mixins.DestroyMode
 class ProductModelViewSet(ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+
+    def list(self, request, *args, **kwargs):
+
+        # Caching products to response faster with API
+        queryset = cache.get('queryset')
+        if queryset is None:
+            queryset = self.filter_queryset(self.get_queryset())
+            cache.set('queryset', queryset, 300)
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
 
     def get_permissions(self):
         if self.action in ('create', 'update', 'destroy', 'partial_update'):
